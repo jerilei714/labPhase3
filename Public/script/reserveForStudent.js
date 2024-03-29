@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let selectedSeat = null;
     let currentLab = null;
     let defaultTotalSeats = 40; 
-    const authorizedUsername = sessionStorage.getItem('authorizedUsername');
+    const authorizedUsername = localStorage.getItem('authorizedUsername');
 
     const startTime = 6; 
     const endTime = 16; 

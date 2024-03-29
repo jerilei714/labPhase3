@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             selectedSeat = seat;
             const popup = document.querySelector('.popup-contents');
             document.querySelector('#popup-date').innerHTML = date; 
-            const authorizedUsername = sessionStorage.getItem('authorizedUsername');
+            const authorizedUsername = localStorage.getItem('authorizedUsername');
         fetch(`/users/${authorizedUsername}`)
             .then(response => response.json())
             .then(user => {
@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         const isAnonymous = document.getElementById('reserveAnon').checked; 
     
         try {
-            const response = await fetch(`/users/${sessionStorage.getItem('authorizedUsername')}`);
+            const response = await fetch(`/users/${localStorage.getItem('authorizedUsername')}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch user data');
             }

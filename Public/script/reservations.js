@@ -8,7 +8,7 @@ const tbody = document.querySelector('.table-container tbody');
 while (tbody.firstChild) {
     tbody.removeChild(tbody.firstChild);
 }
-    const authorizedUsername = sessionStorage.getItem('authorizedUsername');
+    const authorizedUsername = localStorage.getItem('authorizedUsername');
 
     function viewAvailability() {
         const labId = document.getElementById('lab').value;
