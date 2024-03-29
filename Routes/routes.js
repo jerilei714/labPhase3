@@ -14,8 +14,6 @@ router.get('/api/user-info', authenticated, (req, res) => {
     } else {
         res.json({
             authorized: false,
-            username: req.user.username,
-            accountType: req.user.accountType,
           });
     }
   });
