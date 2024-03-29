@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <link rel="stylesheet" href="css/register_style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+ 
+<body>
+    <div class="register-container">
+          
+        <div class="left-section">
+            <div class="background-image">
+                <img src="image/computer.jpg" alt="comp">
+                <div class="text-overlay">
+                    <h2>Welcome to Register Page</h2>
+                    <p>Fill in the details below to create an account</p>
+                </div>
+            </div>
+        </div>
+        <div class="right-section">
+            <h2>Register</h2>
+            <form action="#" id="registerForm">
+                <label for="username" class="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+
+                <label for="course">Course:</label>
+                <input type="text" id="course" name="course" required>
+
+                <label for="accountType">Account Type:</label>
+                <select id="accountType" name="accountType" required class="account-font">
+                    <option value="Student">Student</option>
+                    <option value="Lab Facilitator">Lab Facilitator</option>
+                </select>
+                <br>
+                <span class = "buttons">
+                    <button type="submit">Register</button>
+                    <a href="/"><button>Return to Home Screen</button></a>
+                </span>
+                <div id="message"></div>
+                <p class="login-link">Already have an account? <a href="login">Login</a></p>
+            </form>
+        </div>
+    </div>
+</body>
+<script src="script/register.js" defer></script>
+</html>

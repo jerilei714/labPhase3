@@ -1,0 +1,318 @@
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+
+body {
+    font-family: "Work Sans", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+#availabilityButton{
+    font-family: "Work Sans", sans-serif;
+    padding: 10px 20px;
+    background-color: #3A5A40;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+#lab-selection {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between; 
+    margin-top: 10px;
+    margin-bottom: 20px;
+    column-gap: 1em;
+    row-gap: 1em;
+    width:100vh;
+}
+
+#SelectTime{
+    display: flex;
+    column-gap: 1em;
+
+}
+
+
+#lab-selection select {
+    font-family: "Work Sans", sans-serif;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    width: max-content;
+    min-width: 150px;
+    transition: border-color 0.3s ease;
+}
+
+#SelectTime select{
+    width: 150px;
+}
+
+#lab-selection label {
+    color: #555; 
+    font-family: "Work Sans", sans-serif;
+}
+
+#lab-selection input[type="date"],
+#lab-selection input[type="time"] {
+    font-family: "Work Sans", sans-serif;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    width: 200px;
+    transition: border-color 0.3s ease;
+}
+
+#lab-selection input[type="date"]:hover,
+#lab-selection input[type="time"]:hover,
+#lab-selection input[type="date"]:focus,
+#lab-selection input[type="time"]:focus {
+    border-color: #3A5A40; 
+}
+
+.main-section {
+    text-align: center; 
+    margin: 0 auto auto auto; 
+    max-width: 800px; 
+}
+
+label {
+    margin-right: 10px;
+}
+
+button {
+    padding: 10px;
+    cursor: pointer;
+    color: #fff;
+    background-color: #3A5A40;
+    background-position: right bottom;
+    transition: all 0.3s;
+    background-color: #3A5A40;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+button:hover {
+    background-color:#00290c ;
+  }
+
+
+  button:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #00290c;
+    z-index: -1;
+    transition: 0.3 ease all;
+    transform: scale(0,1);
+
+
+    transform-origin: top right;
+    transition: transform 50ms cubic-bezier(0.86, 0, 0.07, 1);
+    transition-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+
+button:hover::after{
+    transform: scale(1,1);
+    transform-origin: top left;
+}
+
+
+
+#availability-results {
+    display: none;
+    max-width: 100%;
+    margin-top: 0;
+    margin-bottom: 5rem;
+}
+
+.seat-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 0.2em; 
+    max-height: 50em;
+    width: 100%;
+    padding: 1em;
+}
+
+.seat {
+    height: 3em;
+    background-color: #A3B18A;
+    border: 1px solid #3A5A40;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.seat.reserved {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.seat.selected {
+    background-color: #3A5A40;
+    color: white;
+}
+
+#legend {
+    margin-top: 20px;
+}
+
+#legend p {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+#legend .legend-reserved .material-icons, 
+#legend .legend-available .material-icons {
+    font-family: 'Material Symbols Outlined', sans-serif;
+    font-size: 1.2em; 
+    vertical-align: middle;
+    margin-right: 5px; 
+}
+
+
+.legend-reserved,
+.legend-available {
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    border: 1px solid #3A5A40;
+    border-radius: 5px;
+    margin-right: 5px;
+    display: inline-block;
+}
+
+.legend-reserved {
+    background-color: #ccc;
+}
+
+.legend-available {
+    background-color: #A3B18A;
+}
+
+.legend-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-right: 5px; 
+}
+
+.material-icons-button {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.material-icons {
+    font-style: normal; 
+}
+
+.legend-button .material-icons {
+    font-family: 'Material Symbols Outlined', sans-serif;
+    font-size: 1.2em; 
+    color: #3A5A40; 
+}
+
+.popup-contents {
+    font-family: "Work Sans", sans-serif;
+    background-color: rgba(58, 140, 94, 0.8);
+    flex-direction: column;
+    width: 18em;
+    height: max-content;
+    top: 25%;
+    bottom:25%;
+    justify-content: center;
+    position: absolute;
+    font-size: 1.8rem;
+    transition: opacity 1s;
+    border-radius: 0.5em;
+}
+
+.userName {
+    cursor: pointer;
+    color: blue; 
+    text-decoration: underline;
+}
+
+.popup-contents::backdrop {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.dialog[open] {
+    animation: fadein 0.2s ease-out;
+}
+
+@keyframes fadein {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.popup-contents hr {
+    font-family: "Work Sans", sans-serif;
+    border: 0;
+    height: 0.2em;
+    margin: 1em 0;
+    background-color: #173d19a9;
+}
+
+.popup-contents div button,
+.popup-contents div input {
+    font-family: "Work Sans", sans-serif;
+    border-radius: 0.5em;
+    width: 10rem;
+    height: 5rem;
+    font-size: 1.5rem;
+    background-color: rgba(9, 70, 35, 0.2);
+}
+
+.popup-buttons {
+    font-family: "Work Sans", sans-serif;
+    margin: auto;
+}
+
+.popup-contents h4,
+.popup-contents h2 {
+    font-family: "Work Sans", sans-serif;
+    margin: 0;
+}
+
+.popup-details {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+}
+
+.popup-details span {
+    display: flex;
+    margin:0;
+    align-items: center;
+    height: 1.5em;
+}
+
+.popup-details span input[type="checkbox"]{
+    accent-color: darkgreen;
+    width:1em;
+}
+
+  #reserveAnon {
+    font-size: 0.7em;
+  }
+
+  .test{
+    font-size: 0.7em;
+    font-weight: bold;
+  }

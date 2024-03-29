@@ -1,0 +1,366 @@
+body {
+    font-family: "Work Sans", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+
+}
+
+nav {
+    background-color: #3A5A40;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center; 
+}
+
+nav ul li {
+    margin-right: 30px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #344E41;
+}
+
+.search-bar input {
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    background-color: #fff;
+    width: 200px;
+    transition: width 0.3s ease;
+}
+
+.search-bar input:focus {
+    width: 250px;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    margin-right: auto;
+}
+
+.profile-info img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.home-content {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    padding: 20px;
+
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+
+}
+
+.left-section,
+.right-section {
+    flex: 1;
+    padding: 20px;
+}
+
+.left-section {
+    background-color: #fff;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+
+.right-section {
+    background-color: #fff;
+    border-radius: 10px;
+    margin-left: 10px;
+}
+
+.profile-details,
+.current-reservations {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.profile-details {
+    position: relative;
+}
+
+.profile-picture img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 2px solid #3A5A40;
+}
+
+h2 {
+    color: #344E41;
+}
+
+.form-font {
+    font-family: "Work Sans", sans-serif;
+}
+
+.user-actions {
+    display: flex;
+    align-items: center;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: #3A5A40;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #344E41;
+}
+
+.dropdown-content button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: #3A5A40;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-content button:hover {
+    background-color: #344E41;
+}
+
+.reservation .dropbtn,
+.edit .dropbtn,
+.view .dropbtn {
+    font-size: 16px;
+}
+
+.profile-details button {
+    padding: 10px 20px;
+    background-color: #3A5A40;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.profile-details button:hover {
+    background-color: #344E41;
+}
+
+.profile-details .delete-button {
+    padding: 10px 20px;
+    background-color: #E74C3C;
+    color: white;
+    border: 2px solid #E74C3C;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.profile-details .delete-button:hover {
+    background-color: #C0392B;
+}
+
+.back-button {
+    background-color: red;
+    border: none;
+    color: #3A5A40;
+    font-size: 16px;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 100;
+    
+}
+
+.back-button:hover {
+    background-color: #344E41;
+}
+
+.table-container table {
+    width: 100%;
+    table-layout: auto;
+    border-collapse: collapse;
+}
+
+.table-container th {
+    background-color: #3A5A40;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    text-align: left;
+}
+
+.table-container tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table-container td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.table-container tr:hover {
+    background-color: #ddd;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+
+}
+
+.popup-content {
+    text-align: center;
+}
+
+
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #aaa;
+}
+
+.profile-picture{
+    position: relative;
+}
+.edit-pfp img{
+    position: absolute;
+    z-index: 1;
+    width: 4%;
+    height:30%;
+    top: 60%;
+    right: 42%;
+    background-color: rgba(52, 151, 53, 0.947);
+}
+
+.edit-pfp input{
+    display: none;
+}
+
+.edit-pfp img:hover{
+    cursor: pointer;
+    background-color: rgba(60, 135, 64, 0.8);
+}
+
+.close:hover {
+    color: #333;
+}
+
+.popup-content input[type="text"],
+.popup-content input[type="email"],
+.popup-content input[type="password"],
+.popup-content select {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.popup-content button[type="submit"] {
+    background-color: #3A5A40;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.popup-content button[type="submit"]:hover {
+    background-color: #344E41;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="css/loginStyle.css">
+    <script src="script/login.js" defer></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="login-container">
+        <div class="left-section">
+            <br>
+            <h2>Log-In</h2>
+            <form action="#" method="post" id="loginForm">
+                <label for="username" class="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="password">Password:</label>
+                <div class="password-input-container">
+                    <input type="password" id="password" name="password" required>
+                    <span class="toggle-password" onclick="togglePasswordVisibility()">Show</span>
+                </div>
+                
+
+                <div class="additional-options">
+                    <div class="remember-me">
+                        <input type="checkbox" id="rememberMe" name="rememberMe">
+                        <label for="rememberMe">Remember me</label>
+                    </div>
+                </div>
+                <br>
+                <button type="submit">Login</button>
+
+                <p class="register-link">Don't have an account? <a href="register">Register</a></p>
+            </form>
+            <a href="/"><button class = "return">Return to Home Screen</button></a>
+        </div>
+        <div class="right-section">
+            <div class="background-image">
+                <img src="image/computer.jpg" alt="comp">
+            </div>
+            <div class="text-overlay">
+                <p>
+                    <span class="welcome-text">Welcome to</span><br>
+                    <span class="name">DLSU Computer Laboratory</span><br>
+                    <span class="description">Login to access your account and reserve a seat</span>
+                </p>
+        </div>
+    </div>
+</body>
+</html>

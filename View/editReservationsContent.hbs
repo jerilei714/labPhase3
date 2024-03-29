@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/reservations.css">
+    <link rel="stylesheet" href="css/editStudentReservations.css">
+    <link rel="stylesheet" href="css/view_style.css">
+    <script src="script/editStudReservation.js" defer></script>
+    <script src="script/filters.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Reservations</title>
+</head>
+<body>
+    {{> header}}
+    <div class="body-container">
+        <div id="lab-selection">
+            <span>
+                <label for="lab">Choose a Lab:</label>
+                <select id="lab">
+
+                </select>
+            </span>
+
+            <span>
+                <label for="date">Select Date:</label>
+                <input type="date" id="date">
+            </span>
+
+            <span style="display:none">
+                <label for="time">Select Time:</label>
+                    <span id = "SelectTime">
+                        <select id="StartTime" required>
+                        </select>
+                        <select id="EndTime" required>
+                        </select>
+                    </span>
+            </span>
+        </div>
+        <button onclick="viewAvailability()"id="filterButton">Filter</button>
+        <section class="current-reservations">
+            <h2>Current Reservations</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Lab</th>
+                            <th>Seat Number</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Date and Time of Reservation:</th>
+                            <th class="edit-reservation">Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each reservations}}
+                            <tr>
+                                <td>{{this.lab}}</td>
+                                <td>{{this.seat}}</td>
+                                <td>{{this.date}}</td>
+                                <td>{{this.time}}</td>
+                                <td><button>Edit</button></td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+    <div id="edit-profile-popup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closeEditProfilePopup()">&times;</span>
+            <h2>Edit Your Reservation</h2>
+            <form id="edit-profile-form" onsubmit="submitEdit(event)">
+                <select id="popup-lab" name="lab_name" placeholder="Choose a Lab">
+
+                </select>
+    
+                <label for="Seat Number">Seat Number:</label>
+                <input type="text" id="popup-seat"  placeholder="Enter the seat number"><br>
+    
+                <label for="Date">Date:</label><br>
+                <input type="date" id="popup-date" name="email" placeholder="Enter your email"><br>
+    
+                <label for="Time">Time Interval:</label>
+                <select id="popup-StartTime" name="time">
+                </select><br>
+                <select id="popup-EndTime" name="time">
+                </select><br>
+                <button type="submit">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+   {{> footer}}
+</body>
+
+</html>

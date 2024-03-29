@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/editStudentReservations.css">
+    <script src="script/editStudentReservations.js" defer></script>
+    <script src="script/filters.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Reservations</title>
+</head>
+<body>
+    {{> header}}
+    <div class="body-container">
+        <div id="lab-selection">
+            <span>
+                <label for="lab">Enter a student name</label>
+                <input type="text" name="" id="studentNameFilter">
+            </span>
+        </div>
+        <button onclick="filterStudents()"id="filterButton">Filter</button>
+        <section class="current-reservations">
+            <h2>Current Reservations</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Reserved Seats</th>
+                            <th class="edit-reservation">Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each reservations}}
+                            <tr>
+                                <td>{{this.student}}</td>
+                                <td>{{this.seats}}</td>
+                                <td><button>Edit</button></td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    
+    </div>
+    {{> footer}}
+</body>
+
+</html>

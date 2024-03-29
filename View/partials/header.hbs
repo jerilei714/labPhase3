@@ -1,0 +1,62 @@
+<script src="script/nav.js" defer></script>
+<link rel="stylesheet" href="css/nav_style.css"> 
+
+
+        <nav>
+    <div class = "nav-left">
+        <div class="logo">
+            <img src="image/logo.png" alt="logo">
+            <div class="logo-text"><a href = "../">DLSU Laboratory Reservation System</a></div>
+        </div>
+    </div>
+    <div class = "nav-right">
+        <ul>
+            <li class="reservation" id="reservation">
+                <div class="dropdown">
+                    <button class="dropbtn">Reserve</button>
+                    <div class="dropdown-content" id="reservationDropDown">
+                        <a id = "reserveSlot">Reserve Slot</a>
+                        <a id = "reserveForStudent">Reserve for a Student</a>
+                        <a id = "removeReservations">Remove Reservation</a>
+                    </div>
+                </div>
+            </li>
+            <li class="edit" id="edit">
+                <div class="dropdown">
+                    <button class="dropbtn" id="EditDropdown">Edit</button>
+                    <div class="dropdown-content">
+                        <a id ="editReservation">Edit Reservation</a>
+                        <a id ="editStudentReservation">Edit Student Reservations</a>
+                    </div>
+                </div>
+            </li>
+            <li class="view">
+                <div class="dropdown">
+                    <button class="dropbtn">View</button>
+                    <div class="dropdown-content">
+                        <a id="viewSlotAvailability">View Slot Availability</a>
+                        <a id="viewReservations">View Reservation</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="search-bar">
+            <input id = "search-bar" type="text" placeholder="Search for users">
+        </div>
+        <img class="search-image" src="image/search.png"> </img>
+        <div class="user-actions">
+            <div class="profile-info">
+                <img id = "pfp" src="image/Default_pfp.jpg" alt="pfp">
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">Welcome, <span class="username"></span></button>
+                <div class="dropdown-content">
+                    <img id="dropdownpfp" src="image/Default_pfp.jpg" alt="Pfp">
+                    <a id = "viewProfile">Profile</a>
+                    <a id="editProfile" href="./profile?edit=true">Edit Profile</a>
+                    <a id="logout" href="./profile?logout=true">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

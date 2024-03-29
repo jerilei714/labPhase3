@@ -1,0 +1,295 @@
+nav {
+    background-color: #3A5A40;
+    color: white;
+    height: 5em;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    padding: 0 2em 0 2em;
+}
+
+
+.logo-text{
+    font-weight:bold;
+    font-size: 1em;
+    font-style: italic;
+    height:5em;
+}
+
+
+.nav-left, .nav-right {
+    display: flex;
+    align-items: center;
+}
+
+
+.nav-left {
+    justify-content: flex-start; 
+    column-gap: 4em;
+    flex:40%;   
+    height: 100%;
+}
+
+.home{
+    height:100%;
+}
+
+.nav-left a{
+    padding: 0 0.5em;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-decoration: none;;
+}
+
+.nav-left a:hover{
+cursor: pointer;
+background-color: #344E41; 
+width: 100%;
+}
+
+
+
+.nav-right {
+    justify-content: flex-end; 
+    flex-grow: 1;
+    height: 100%;
+    flex:10%;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: flex-end; 
+    width:max-content;
+}
+
+nav ul li {
+    display: flex;
+    margin-right: 30px;
+    width: 100%;
+    height:100%;
+    align-items: center;
+}
+
+ul li div button{
+    height:5em;
+}
+
+nav ul li a {
+    display: flex;
+    text-decoration: none;
+    
+    color: white;
+
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #344E41; 
+}
+
+.logo img {
+    max-height: 10%; 
+    width: 8em;
+}
+
+.nav-left .logo {
+    display: flex;
+    align-items: center;
+    margin-right: 1em; 
+}
+
+.search-bar input {
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    background-color: #fff;
+    width: 200px;
+    transition: width 0.3s ease; 
+}
+
+.search-bar input:focus {
+    width: 250px; 
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    margin-right: auto; 
+}
+
+.profile-info img, .dropdown-content img {
+    width: 3em;
+    height: 3em;
+    border-radius: 100%;
+    margin-left: 1em;
+}
+
+.user-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height:100%;
+    
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    height:100%;
+}
+
+.dropbtn {
+    background-color: #3A5A40;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    justify-content: center;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    max-width: 100%;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+    right:2em;
+    padding: 0.5em;
+    
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.dropdown-content img{
+    margin: 1em 0;
+    align-self: center;
+    border: 1px solid black;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #344E41;
+}
+
+.reservation .dropbtn,
+.edit .dropbtn,
+.view .dropbtn {
+    font-size: 16px; 
+}
+
+#viewProfile:hover{
+    cursor: pointer;
+}
+
+.home{
+    height:100%;
+}
+
+.dropdown button{
+    height:100%;
+}
+
+#signInButton{
+    background-color:#8fe2a5;
+    height: 60%;
+    width: 10em;
+    border-radius: 1em;
+    margin-left: 2em;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: all 0.3s;
+    background-position: right bottom;
+}
+
+#signInButton:hover{
+    background-color:rgba(76, 178, 103, 0.8);
+    cursor: pointer;
+}
+
+#signInButton:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(76, 178, 103, 0.8);
+    z-index: -1;
+    transition: 0.3 ease all;
+    transform: scale(0,1);
+
+
+
+
+    transform-origin: top right;
+    transition: transform 50ms cubic-bezier(0.86, 0, 0.07, 1);
+    transition-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+#signInButton:hover::after{
+    transform: scale(1,1);
+    transform-origin: top left;
+}
+
+footer {
+    align-self: flex-end;
+    background-color: #3A5A40;
+    color: white;
+    text-align: center;
+    width: 100%;
+    padding: 1em 0;
+    position: relative;
+    bottom: 0;
+    height: max-content;
+    margin-top: 1em;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin:0;
+}
+
+.search-image{
+    margin-left:-1.90em;
+    margin-right: 1em;;
+    width: 1em;
+    background-color: rgba(169, 169, 169, 0.542);
+    height: 16px;
+    object-fit:fill;
+    padding: 0.48em;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.search-image:hover{
+    cursor: pointer;
+    background-color: rgba(0,0,0,0.3);
+}

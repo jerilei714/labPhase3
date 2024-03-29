@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/profile.css"> 
+    <link rel="stylesheet" href="style/viewProfile.css">
+    <script src="Public/script/viewProfile.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Lab Reservation System</title>
+</head>
+<body>
+    {{> header}}
+    
+    <section class="home-content" id = "homeContent">
+        <div class="content">
+            <section class="profile-details">
+                <button onclick="goToHomePage()" class="back-button">&#9664; Back</button>
+                <div class="profile-picture">
+                    <img id="pfpStudent" src="image/Default_pfp.jpg">
+                </div>
+                <div class="profile-details" id = "profile-detail-container">
+                    <h2><span id="name">{{fullName}}</span></h2>
+                    <p>Username: <span id="username">{{username}}</span></p>
+                    <p>Email: <span id="email">{{email}}</span></p>
+                    <p>Course: <span id="course">{{course}}</span></p>
+                    <p>Account Type: <span id="accountType">{{accountType}}</span></p>
+                    <div>Description: <p id="description">{{description}}</p></div>
+                </div>
+            </section>
+            <section class="current-reservations" id = "reservationList">
+                <h2>Current Reservations</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Lab</th>
+                                <th>Seat Number</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Time and Date requested</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each reservations}}
+                            <tr>
+                                <td>{{lab}}</td>
+                                <td>{{seatNumber}}</td>
+                                <td>{{date}}</td>
+                                <td>{{time}}</td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </section>
+    <div id="edit-profile-popup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closeEditProfilePopup()">&times;</span>
+            <h2>Edit Profile</h2>
+            <form id="edit-profile-form" onsubmit="submitEditProfile(event)">
+                <label for="fullName">Full Name:</label>
+                <input type="text" id="edit-name" name="full-name" placeholder="Enter your full name"><br>
+
+                <label for="username">Username:</label>
+                <input type="text" id="edit-username" placeholder="Enter your username"><br>
+
+                <label for="email">Email:</label>
+                <input type="email" id="edit-email" name="email" placeholder="Enter your email"><br>
+
+                <label for="course">Course:</label>
+                <input type="text" id="edit-course" name="course" placeholder="Enter your course"><br>
+
+                <label for="account-type">Account Type:</label>
+                <select id="edit-accountType" name="account-type">
+                    <option value="Student">Student</option>
+                    <option value="Lab Facilitator">Lab Facilitator</option>
+                </select><br>
+
+                <label for="password">Edit Password:</label>
+                <input type="password" id="edit-password" name="password" placeholder="Enter your password"><br>
+
+                <label for="oldPassword">Enter Old Password To Save Changes:</label>
+                <input type="password" id="edit-old-password" name="old-password" placeholder="Enter your old password"><br>
+
+                <button type="submit">Save Changes</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
