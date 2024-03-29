@@ -12,7 +12,11 @@ router.get('/api/user-info', authenticated, (req, res) => {
         accountType: req.user.accountType,
       });
     } else {
-      res.json({ authorized: false });
+        res.json({
+            authorized: false,
+            username: req.user.username,
+            accountType: req.user.accountType,
+          });
     }
   });
 
