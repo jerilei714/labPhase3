@@ -57,5 +57,6 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
     // UNTICK IF YOU WANT TO RESET DATABASE CONTENTS
-    initializeApplication() 
+    //comment out the line below to prevent database reset
+    //initializeApplication() 
 });
