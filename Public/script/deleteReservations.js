@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentLab = null;
     let defaultTotalSeats = 40;
     let date = document.getElementById('date').value;
-    const authorizedUsername = sessionStorage.getItem('authorizedUsername');
+    const authorizedUsername = localStorage.getItem('authorizedUsername');
     function deleteReservation(reservationId, seat) {
         fetch(`/reservations/${reservationId}`, {
             method: 'DELETE'

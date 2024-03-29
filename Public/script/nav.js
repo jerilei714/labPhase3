@@ -5,9 +5,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const data = await response.json();
 
             if (data.authorized) {
-                await sessionStorage.setItem('authorized', 'true');
-                await sessionStorage.setItem('authorizedUsername', data.username);
-                await sessionStorage.setItem('AccountType', data.accountType);
+                await localStorage.setItem('authorized', 'true');
+                await localStorage.setItem('authorizedUsername', data.username);
+                await localStorage.setItem('AccountType', data.accountType);
                 auth();
             } else {
                 console.log('User will not be remembered');
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-      if (!sessionStorage.getItem('authorized')) {
+      if (!localStorage.getItem('authorized')) {
             let profileArea = document.querySelector('.user-actions');
             let unauthorized = '<button id="signInButton">Sign-in</button>';
             profileArea.innerHTML = unauthorized;
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
             };
 
       } else {
-        const authorizedUsername = sessionStorage.getItem('authorizedUsername');
+        const authorizedUsername = localStorage.getItem('authorizedUsername');
 
         fetch(`/users/${authorizedUsername}`)
             .then(response => response.json())
@@ -99,11 +99,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     usernameDisplay.textContent = authorizedUsername;
                 }
 
-                if (sessionStorage.getItem('AccountType') === "Student") {
+                if (localStorage.getItem('AccountType') === "Student") {
                     editReservation.style.display = "block";
                     document.getElementById('reserveSlot').style.display = "block";
                     document.getElementById('viewReservations').style.display = "block";
-                } else if (sessionStorage.getItem('AccountType') === "Lab Facilitator") {
+                } else if (localStorage.getItem('AccountType') === "Lab Facilitator") {
                     document.getElementById('reserveForStudent').style.display = "block";
                     document.getElementById('removeReservations').style.display = "block";
                     editStudentReservation.style.display = "block";

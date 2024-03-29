@@ -34,9 +34,9 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         }
     })
     .then(data => {
-        sessionStorage.setItem('authorized', true);
-        sessionStorage.setItem('authorizedUsername', data.username);
-        sessionStorage.setItem('AccountType', data.accountType);
+        localStorage.setItem('authorized', true);
+        localStorage.setItem('authorizedUsername', data.username);
+        localStorage.setItem('AccountType', data.accountType);
         window.location.href = '/';
     })    
     .catch(error => {

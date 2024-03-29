@@ -1,4 +1,4 @@
-const authorizedUsername = sessionStorage.getItem('authorizedUsername');
+const authorizedUsername = localStorage.getItem('authorizedUsername');
 const urlParams = new URLSearchParams(window.location.search);
 const searchedUser = urlParams.get('username');
 
