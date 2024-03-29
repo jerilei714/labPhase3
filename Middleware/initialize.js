@@ -30,7 +30,7 @@ const generateRandomReservations = (labs, users, numberOfReservations) => {
     return reservations;
 };
 
-const dropAllCollections = async () => {
+/* const dropAllCollections = async () => {
     const uri = process.env.MONGODB_URI; 
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
     try {
@@ -44,10 +44,10 @@ const dropAllCollections = async () => {
     } finally {
         await client.close();
     }
-};
+}; */
 
 const initializeApplication = async () => {
-    await dropAllCollections(); 
+    //await dropAllCollections(); 
     await initializeSampleData(); 
 };
 
