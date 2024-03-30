@@ -12,7 +12,7 @@ const cookieAuth = async (req, res, next) => {
 
     const token = req.cookies.rememberMe;
     if (!token || token.trim() === '') {
-        return next(); 
+        return next();
     }
 
     try {
@@ -22,11 +22,17 @@ const cookieAuth = async (req, res, next) => {
             res.cookie('rememberMe', '', { httpOnly: true, expires: new Date(0) });
             return next();
         }
-        const newToken = jwt.sign({ username: user.username, userId: user.id }, JWT_SECRET, { expiresIn: '3w' });
-        await removeRememberMeToken(user.username, token);
-        await removeExpiredRememberMeTokens(user.username);
-        await addRememberMeToken(user.username, newToken);
-        res.cookie('rememberMe', newToken, { httpOnly: true, maxAge: 1814400000, secure: true, withCredentials: true});
+        if (user.rememberMe) {
+            const newToken = jwt.sign({ username: user.username, userId: user.id }, JWT_SECRET, { expiresIn: '3w' });
+            await removeRememberMeToken(user.username, token);
+            await removeExpiredRememberMeTokens(user.username);
+            await addRememberMeToken(user.username, newToken);
+            res.cookie('rememberMe', newToken, { httpOnly: true, maxAge: 1814400000, secure: true, withCredentials: true });
+        } else {
+            const sessionToken = jwt.sign({ username: user.username, userId: user.id }, JWT_SECRET);
+            req.sessionToken = sessionToken; 
+            res.cookie('sessionToken', sessionToken, { httpOnly: true });
+        }
         req.user = { username: user.username, accountType: user.accountType, userId: user.id };
         next();
     } catch (error) {
