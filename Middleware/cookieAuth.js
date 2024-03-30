@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
-const {getUserByToken,addRememberMeToken,removeExpiredRememberMeTokens, removeRememberMeToken} = require('../Model/labUsers');
+const { getUserByToken, addRememberMeToken, removeExpiredRememberMeTokens, removeRememberMeToken } = require('../Model/labUsers');
 const express = require('express');
-const JWT_SECRET = "fd619fbed37454c3c75b121d7e07e4e310f77f5b502b9dcb6a9f749952cab382"; 
+const JWT_SECRET = "fd619fbed37454c3c75b121d7e07e4e310f77f5b502b9dcb6a9f749952cab382";
 const router = express.Router();
 
 const cookieAuth = async (req, res, next) => {
@@ -10,48 +10,38 @@ const cookieAuth = async (req, res, next) => {
         return next();
     }
 
+    const rememberMe = req.cookies.rememberMe;
+
     try {
-        const rememberMeToken = req.cookies.rememberMe;
-        const sessionToken = req.cookies.sessionToken;
-
-        if (rememberMeToken && rememberMeToken.trim() !== '') {
-            const decoded = jwt.verify(rememberMeToken, JWT_SECRET);
-            const user = await getUserByToken(rememberMeToken);
+        if (rememberMe) {
+            const decoded = jwt.verify(rememberMe, JWT_SECRET);
+            const user = await getUserByToken(rememberMe);
             if (!user) {
-                res.cookie('rememberMe', '', { httpOnly: true, expires: new Date(0) });
+                res.clearCookie('rememberMe');
                 return next();
             }
-            const newToken = jwt.sign({ username: user.username, userId: user.id }, JWT_SECRET, { expiresIn: '3w' });
-            await removeRememberMeToken(user.username, rememberMeToken);
-            await removeExpiredRememberMeTokens(user.username);
-            await addRememberMeToken(user.username, newToken);
-            res.cookie('rememberMe', newToken, { httpOnly: true, maxAge: 1814400000, secure: true, withCredentials: true });
-            req.user = { username: user.username, accountType: user.accountType, userId: user.id };
-        } else if (sessionToken && sessionToken.trim() !== '') {
-            const decoded = jwt.verify(sessionToken, JWT_SECRET);
-            const user = await getUserByToken(sessionToken);
-            if (!user) {
-                res.cookie('sessionToken', '', { httpOnly: true, expires: new Date(0) });
-                return next();
+            if (user.rememberMe) {
+                const newToken = jwt.sign({ username: user.username, userId: user.id }, JWT_SECRET, { expiresIn: '3w' });
+                await removeRememberMeToken(user.username, rememberMe);
+                await removeExpiredRememberMeTokens(user.username);
+                await addRememberMeToken(user.username, newToken);
+                res.cookie('rememberMe', newToken, { httpOnly: true, maxAge: 1814400000, secure: true, withCredentials: true });
+            } else {
+                res.clearCookie('rememberMe');
             }
             req.user = { username: user.username, accountType: user.accountType, userId: user.id };
+        } else {
+            const sessionToken = jwt.sign({ username: user.username, userId: user.id }, JWT_SECRET);
+            req.sessionToken = sessionToken;
+            res.cookie('sessionToken', sessionToken, { httpOnly: true });
         }
-
         next();
     } catch (error) {
         console.error("Authentication middleware error:", error);
-        res.cookie('rememberMe', '', { httpOnly: true, expires: new Date(0) });
-        res.cookie('sessionToken', '', { httpOnly: true, expires: new Date(0) });
-        next();
+        res.clearCookie('rememberMe');
+        return next();
     }
 };
-
-module.exports = {
-    router,
-    cookieAuth
-};
-
-
 
 module.exports = {
     router,
