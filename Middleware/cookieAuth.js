@@ -12,6 +12,9 @@ const cookieAuth = async (req, res, next) => {
 
     const token = req.cookies.rememberMe;
     if (!token || token.trim() === '') {
+        const sessionToken = jwt.sign({}, JWT_SECRET);
+        req.sessionToken = sessionToken; 
+        res.cookie('sessionToken', sessionToken, { httpOnly: true });
         return next();
     }
 
@@ -41,6 +44,7 @@ const cookieAuth = async (req, res, next) => {
         return next();
     }
 };
+
 
 module.exports = {
     router,
