@@ -15,24 +15,25 @@ const cookieAuth = async (req, res, next) => {
         const sessionToken = jwt.sign({}, JWT_SECRET);
         req.sessionToken = sessionToken; 
         res.cookie('sessionToken', sessionToken, { httpOnly: true });
-        return next();
     }
 
     try {
-        const decoded = jwt.verify(token, JWT_SECRET);
-        const user = await getUserByToken(token);
-        if (!user) {
-            res.cookie('rememberMe', '', { httpOnly: true, expires: new Date(0) });
-            return next();
+        if (token && token.trim() !== '') {
+            const decoded = jwt.verify(token, JWT_SECRET);
+            const user = await getUserByToken(token);
+            if (!user) {
+                res.cookie('rememberMe', '', { httpOnly: true, expires: new Date(0) });
+                return next();
+            }
+            if (user.rememberMe) {
+                const newToken = jwt.sign({ username: user.username, userId: user.id }, JWT_SECRET, { expiresIn: '3w' });
+                await removeRememberMeToken(user.username, token);
+                await removeExpiredRememberMeTokens(user.username);
+                await addRememberMeToken(user.username, newToken);
+                res.cookie('rememberMe', newToken, { httpOnly: true, maxAge: 1814400000, secure: true, withCredentials: true });
+            } 
+            req.user = { username: user.username, accountType: user.accountType, userId: user.id };
         }
-        if (user.rememberMe) {
-            const newToken = jwt.sign({ username: user.username, userId: user.id }, JWT_SECRET, { expiresIn: '3w' });
-            await removeRememberMeToken(user.username, token);
-            await removeExpiredRememberMeTokens(user.username);
-            await addRememberMeToken(user.username, newToken);
-            res.cookie('rememberMe', newToken, { httpOnly: true, maxAge: 1814400000, secure: true, withCredentials: true });
-        }
-        req.user = { username: user.username, accountType: user.accountType, userId: user.id };
         next();
     } catch (error) {
         console.error("Authentication middleware error:", error);
@@ -40,6 +41,7 @@ const cookieAuth = async (req, res, next) => {
         return next();
     }
 };
+
 
 
 module.exports = {
