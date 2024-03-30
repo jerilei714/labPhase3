@@ -4,7 +4,7 @@ const password = document.getElementById('password');
 const email = document.getElementById('email');
 const course = document.getElementById('course');
 const accountType = document.getElementById('accountType');
-let authorizedUsername = localStorage.getItem('authorizedUsername');
+let authorizedUsername = sessionStorage.getItem('authorizedUsername');
 const display_pfp = document.getElementById('pfpSelf');
 const tbody = document.querySelector('.table-container tbody');
 
@@ -81,8 +81,8 @@ fetch(`/users/${authorizedUsername}`)
 
 
 function logout() {
-    localStorage.removeItem('authorized');
-    localStorage.removeItem('authorizedUsername');
+    sessionStorage.removeItem('authorized');
+    sessionStorage.removeItem('authorizedUsername');
     
     goToHomePage();
 }
@@ -111,7 +111,7 @@ function deleteUser() {
 }
 
 function reset() {
-    localStorage.clear();
+    sessionStorage.clear();
     goToHomePage();
 }
 

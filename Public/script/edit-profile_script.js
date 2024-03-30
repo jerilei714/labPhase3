@@ -1,6 +1,6 @@
 function submitEditProfile(event) {
     event.preventDefault();
-    const authorizedUsername = localStorage.getItem('authorizedUsername');
+    const authorizedUsername = sessionStorage.getItem('authorizedUsername');
     const updatedUserData = {
         name: document.getElementById('edit-name').value,
         username: document.getElementById('edit-username').value,
@@ -60,7 +60,7 @@ function populateEditForm(userData) {
 }
 
 function loadUserProfile() {
-    const authorizedUsername = localStorage.getItem('authorizedUsername');
+    const authorizedUsername = sessionStorage.getItem('authorizedUsername');
     fetch(`/users/${authorizedUsername}`)
     .then(response => {
         if (response.ok) {
@@ -78,7 +78,7 @@ function loadUserProfile() {
 }
 
 function updateProfilePicture(base64String) {
-    const authorizedUsername = localStorage.getItem('authorizedUsername');
+    const authorizedUsername = sessionStorage.getItem('authorizedUsername');
     fetch(`/users/${authorizedUsername}`, {
         method: 'PUT',
         headers: {
@@ -140,11 +140,11 @@ function logout() {
     .then(response => {
       if(response.ok) {
         console.log("Logged out successfully");
-        localStorage.clear();
+        sessionStorage.clear();
       }
     })
     .catch(error => console.error('Logout failed', error));
-    localStorage.clear()
+    sessionStorage.clear()
     goToHomePage();
 }
 

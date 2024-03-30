@@ -113,11 +113,11 @@ document.addEventListener('DOMContentLoaded', async function () {
             const startTime = document.getElementById('StartTime').value;
             const endTime = document.getElementById('EndTime').value;
 
-            selectedSeat = seat; // assign the selected seat to the selectedSeat variable
+            selectedSeat = seat;
 
             const popup = document.querySelector('.popup-contents');
             document.querySelector('#popup-date').innerHTML = date;
-            const authorizedUsername = localStorage.getItem('authorizedUsername');
+            const authorizedUsername = sessionStorage.getItem('authorizedUsername');
             fetch(`/users/${authorizedUsername}`)
                 .then(response => response.json())
                 .then(user => {
@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
 
         try {
-            const response = await fetch(`/users/${localStorage.getItem('authorizedUsername')}`);
+            const response = await fetch(`/users/${sessionStorage.getItem('authorizedUsername')}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch user data');
             }
@@ -198,9 +198,9 @@ document.addEventListener('DOMContentLoaded', async function () {
             selectedSeat.classList.add('selected');
             selectedSeat.removeEventListener('click', showPopup);
 
-            const selectedSeats = JSON.parse(localStorage.getItem('selectedSeats')) || [];
+            const selectedSeats = JSON.parse(sessionStorage.getItem('selectedSeats')) || [];
             selectedSeats.push(selectedSeat.innerText);
-            localStorage.setItem('selectedSeats', JSON.stringify(selectedSeats));
+            sessionStorage.setItem('selectedSeats', JSON.stringify(selectedSeats));
         } catch (error) {
             console.error('Error making reservation:', error);
             alert('Error: Could not make reservation');

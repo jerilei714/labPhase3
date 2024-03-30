@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let selectedSeat = null;
     let currentLab = null;
     let defaultTotalSeats = 40; 
-    const authorizedUsername = localStorage.getItem('authorizedUsername');
+    const authorizedUsername = sessionStorage.getItem('authorizedUsername');
 
     const startTime = 6; 
     const endTime = 16; 
@@ -159,9 +159,9 @@ document.addEventListener('DOMContentLoaded', function () {
             selectedSeat.classList.add('selected');
             selectedSeat.removeEventListener('click', showPopup);
     
-            const selectedSeats = JSON.parse(localStorage.getItem('selectedSeats')) || [];
+            const selectedSeats = JSON.parse(sessionStorage.getItem('selectedSeats')) || [];
             selectedSeats.push(selectedSeat.innerText);
-            localStorage.setItem('selectedSeats', JSON.stringify(selectedSeats));
+            sessionStorage.setItem('selectedSeats', JSON.stringify(selectedSeats));
         } catch (error) {
             console.error('Error making reservation:', error);
             alert('Error: Could not make reservation');

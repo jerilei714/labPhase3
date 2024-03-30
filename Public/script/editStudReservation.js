@@ -1,5 +1,5 @@
 let editingReservationIndex = null;
-const authorizedUsername = localStorage.getItem('authorizedUsername');
+const authorizedUsername = sessionStorage.getItem('authorizedUsername');
 const popup = document.querySelector('.popup');
 fetchLabs();
 
