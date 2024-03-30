@@ -11,14 +11,13 @@ const cookieAuth = async (req, res, next) => {
     }
 
     const token = req.cookies.rememberMe;
-    if (!token || token.trim() === '') {
-        const sessionToken = jwt.sign({}, JWT_SECRET);
-        req.sessionToken = sessionToken; 
-        res.cookie('sessionToken', sessionToken, { httpOnly: true });
-    }
 
     try {
-        if (token && token.trim() !== '') {
+        if (!token || token.trim() === '') {
+            const sessionToken = jwt.sign({}, JWT_SECRET);
+            req.sessionToken = sessionToken; 
+            res.cookie('sessionToken', sessionToken, { httpOnly: true });
+        } else {
             const decoded = jwt.verify(token, JWT_SECRET);
             const user = await getUserByToken(token);
             if (!user) {
@@ -41,8 +40,6 @@ const cookieAuth = async (req, res, next) => {
         return next();
     }
 };
-
-
 
 module.exports = {
     router,
