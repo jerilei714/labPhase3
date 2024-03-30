@@ -11,40 +11,46 @@ const cookieAuth = async (req, res, next) => {
     }
 
     try {
-        const token = req.cookies.rememberMe;
+        const rememberMeToken = req.cookies.rememberMe;
+        const sessionToken = req.cookies.sessionToken;
 
-        if (token && token.trim() !== '') {
-            const decoded = jwt.verify(token, JWT_SECRET);
-            const user = await getUserByToken(token);
+        if (rememberMeToken && rememberMeToken.trim() !== '') {
+            const decoded = jwt.verify(rememberMeToken, JWT_SECRET);
+            const user = await getUserByToken(rememberMeToken);
             if (!user) {
                 res.cookie('rememberMe', '', { httpOnly: true, expires: new Date(0) });
                 return next();
             }
-            if (user.rememberMe) {
-                const newToken = jwt.sign({ username: user.username, userId: user.id }, JWT_SECRET, { expiresIn: '3w' });
-                await removeRememberMeToken(user.username, token);
-                await removeExpiredRememberMeTokens(user.username);
-                await addRememberMeToken(user.username, newToken);
-                res.cookie('rememberMe', newToken, { httpOnly: true, maxAge: 1814400000, secure: true, withCredentials: true });
-            } else {
-                const sessionToken = jwt.sign({ username: user.username, userId: user.id }, JWT_SECRET);
-                req.sessionToken = sessionToken; 
-                res.cookie('sessionToken', sessionToken, { httpOnly: true });
+            const newToken = jwt.sign({ username: user.username, userId: user.id }, JWT_SECRET, { expiresIn: '3w' });
+            await removeRememberMeToken(user.username, rememberMeToken);
+            await removeExpiredRememberMeTokens(user.username);
+            await addRememberMeToken(user.username, newToken);
+            res.cookie('rememberMe', newToken, { httpOnly: true, maxAge: 1814400000, secure: true, withCredentials: true });
+            req.user = { username: user.username, accountType: user.accountType, userId: user.id };
+        } else if (sessionToken && sessionToken.trim() !== '') {
+            const decoded = jwt.verify(sessionToken, JWT_SECRET);
+            const user = await getUserByToken(sessionToken);
+            if (!user) {
+                res.cookie('sessionToken', '', { httpOnly: true, expires: new Date(0) });
+                return next();
             }
             req.user = { username: user.username, accountType: user.accountType, userId: user.id };
-        } else {
-            const sessionToken = jwt.sign({}, JWT_SECRET);
-            req.sessionToken = sessionToken; 
-            res.cookie('sessionToken', sessionToken, { httpOnly: true });
         }
+
         next();
     } catch (error) {
         console.error("Authentication middleware error:", error);
         res.cookie('rememberMe', '', { httpOnly: true, expires: new Date(0) });
-        res.clearCookie('sessionToken');
-        return next();
+        res.cookie('sessionToken', '', { httpOnly: true, expires: new Date(0) });
+        next();
     }
 };
+
+module.exports = {
+    router,
+    cookieAuth
+};
+
 
 
 module.exports = {
