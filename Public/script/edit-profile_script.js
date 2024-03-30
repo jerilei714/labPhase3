@@ -56,7 +56,7 @@ function populateEditForm(userData) {
     document.getElementById('edit-course').value = userData.course;
     document.getElementById('edit-accountType').value = userData.accountType;
     document.getElementById('edit-description').value = userData.description;
-    ddocument.getElementById('edit-password').value = userData.password;
+    document.getElementById('edit-password').value = userData.password;
 }
 
 function loadUserProfile() {
