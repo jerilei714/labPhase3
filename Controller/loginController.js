@@ -20,6 +20,10 @@ router.post('/', async (req, res) => {
                 await addRememberMeToken(username, rememberToken);
                 await removeExpiredRememberMeTokens(username);
                 res.cookie('rememberMe', rememberToken, { httpOnly: true, maxAge: 1814400000 });
+            } else{
+                const sessionToken = jwt.sign({ username: user.username, userId: user.id }, "fd619fbed37454c3c75b121d7e07e4e310f77f5b502b9dcb6a9f749952cab382");
+                req.sessionToken = sessionToken; 
+                res.cookie('sessionToken', sessionToken, { httpOnly: true, maxAge:  1800 * 1000, secure: true, withCredentials: true });
             }
             res.status(200).json({ username: user.username, accountType: user.accountType, token: token });
         } else {

@@ -10,8 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 await sessionStorage.setItem('AccountType', data.accountType);
                 auth();
             } else {
-                console.log('User will not be remembered');
-                
+                console.log('User will not be remembered'); 
                 auth();
             }
         } catch (error) {

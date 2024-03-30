@@ -29,9 +29,7 @@ const cookieAuth = async (req, res, next) => {
             await addRememberMeToken(user.username, newToken);
             res.cookie('rememberMe', newToken, { httpOnly: true, maxAge: 1814400000, secure: true, withCredentials: true });
         } else {
-            const sessionToken = jwt.sign({ username: user.username, userId: user.id }, JWT_SECRET);
-            req.sessionToken = sessionToken; 
-            res.cookie('sessionToken', sessionToken, { httpOnly: true });
+
         }
         req.user = { username: user.username, accountType: user.accountType, userId: user.id };
         next();
