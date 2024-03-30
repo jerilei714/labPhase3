@@ -16,27 +16,26 @@
     {{> header}}
     <div class="main-section">  
         <h2>View Slot Availability</h2>
-        <form id = "buttonForAvailibility" method="post">
+        <form id="buttonForAvailibility" method="post">
             <div id="lab-selection">
                 <span>
                     <label for="lab">Choose a Lab:</label>
-                    <select id="lab">
-                    </select>
+                    <select id="lab"></select>
                 </span>
-    
+   
                 <span>
                     <label for="date">Select Date:</label>
                     <input type="date" id="date" required>
                 </span>
-    
-                <span hidden>
-                    <label for="time">Select Time:</label>
-                    <span id = "SelectTime">
-                        <select id="StartTime" required>
-                        </select>
-                        <select id="EndTime" required>
-                        </select>
-                    </span>
+   
+                <span>
+                    <label for="StartTime">Start Time:</label>
+                    <select id="StartTime" required></select>
+                </span>
+   
+                <span>
+                    <label for="EndTime">End Time:</label>
+                    <select id="EndTime" required></select>
                 </span>
             </div>
             <button type="submit">View Availability</button>
@@ -46,8 +45,11 @@
             <p><span class="legend-available"><i class="material-icons">chair</i></span> Available</p>
         </div>
 
+
         <button class="legend-button" onclick="toggleReservation()">
+            <span class="material-icons">info</span>
         </button>
+
 
         <div id="availability-results">
             <div class="seat-container">
@@ -56,22 +58,21 @@
         </div>
         <dialog class="popup-contents" id="popup-contents">
             <div class="popup-details">
-                <h2>Reservation Details</h2> 
+                <h2>Reservation Details</h2>
                 <hr>
                 <span><strong>Seat Number:</strong><span class="seatNumber"></span></span>
                 <span><strong>Date: </strong> <span id="popup-date"></span></span>
-                <span><strong>Name:</strong><span id = "userName" class="userName"></span></span>
+                <span><strong>Name:</strong><span id="userName" class="userName"></span></span>
                 <span><strong>Time:</strong><span id="popup-time"></span></span>
                 <span><strong>Date Reserved:</strong><span id="date-reserved"> 2-14-2024</span></span>
             </div>
             <div class="popup-buttons">
-                <button class = "confirmButton" onclick="hideIt()"> Return</button>
-
+                <button class="confirmButton" onclick="hideIt()"> Return</button>
             </div>
-    </dialog>
-
-</div> 
-{{> footer}}
+        </dialog>
+    </div>
+    {{> footer}}
 </body>
-
 </html>
+
+

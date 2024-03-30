@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,11 +30,13 @@
                 </span>
    
                 <span>
-                    <label for="time">Select Time:</label>
-                    <span id="SelectTime">
-                        <select id="StartTime" required></select>
-                        <select id="EndTime" required></select>
-                    </span>
+                    <label for="StartTime">Start Time:</label>
+                    <select id="StartTime" required></select>
+                </span>
+
+                <span>
+                    <label for="EndTime">End Time:</label>
+                    <select id="EndTime" required></select>
                 </span>
             </div>
             <button type="submit">View Availability</button>
@@ -44,20 +47,11 @@
             <p><span class="legend-available"><i class="material-icons">chair</i></span> Available</p>
         </div>
 
-
-
-
         <button class="legend-button" onclick="toggleReservation()"></button>
-
-
-
 
         <div id="availability-results">
             <div class="seat-container"></div>
         </div>
-
-
-
 
         <dialog class="popup-contents" id="popup-contents">
             <div class="popup-details">
@@ -68,7 +62,7 @@
                 <span><strong>Name:</strong><span id="userName"></span></span>
                 <span><strong>Time:</strong><span id="popup-time"></span></span>
                 <span><strong>Date Reserved:</strong><span id="date-reserved">2-14-2024</span></span>
-                  <span><input id="reserveAnon" type="checkbox"><span class="test">Reserve Anonymously</span></input></span>
+                <span><input id="reserveAnon" type="checkbox"><span class="test">Reserve Anonymously</span></input></span>
             </div>
             <div class="popup-buttons">
                 <button onclick="reserve()"> Confirm</button>
@@ -91,8 +85,8 @@
             </div>
         </dialog>
     </div>
+    {{> footer}}
 </body>
-{{> footer}}
 </html>
 
 
