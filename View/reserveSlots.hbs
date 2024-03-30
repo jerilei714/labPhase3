@@ -15,63 +15,84 @@
 <body>
     {{> header}}
     <div class="main-section">  
-        <h2>Reserve Slots</h2>
-        <form id = "buttonForAvailibility" method="post">
+        <h2>Reserve or View Slots</h2>
+        <form id="buttonForAvailibility" method="post">
             <div id="lab-selection">
                 <span>
                     <label for="lab">Choose a Lab:</label>
-                    <select id="lab">
-                    </select>
+                    <select id="lab"></select>
                 </span>
-    
+   
                 <span>
                     <label for="date">Select Date:</label>
                     <input type="date" id="date" required>
                 </span>
-    
+   
                 <span>
                     <label for="time">Select Time:</label>
-                    <span id = "SelectTime">
-                        <select id="StartTime" required>
-                        </select>
-                        <select id="EndTime" required>
-                        </select>
+                    <span id="SelectTime">
+                        <select id="StartTime" required></select>
+                        <select id="EndTime" required></select>
                     </span>
                 </span>
             </div>
             <button type="submit">View Availability</button>
         </form>
-        
+       
         <div id="legend">
             <p><span class="legend-reserved"><i class="material-icons">chair</i></span> Reserved</p>
             <p><span class="legend-available"><i class="material-icons">chair</i></span> Available</p>
         </div>
 
-        <button class="legend-button" onclick="toggleReservation()">
-        </button>
+
+
+
+        <button class="legend-button" onclick="toggleReservation()"></button>
+
+
+
 
         <div id="availability-results">
-            <div class="seat-container">
-                <button class="material-icons-button"></button>
-            </div>
+            <div class="seat-container"></div>
         </div>
+
+
+
+
         <dialog class="popup-contents" id="popup-contents">
             <div class="popup-details">
-                <h2>Reservation Details</h2> 
+                <h2>Reservation Details</h2>
                 <hr>
                 <span><strong>Seat Number:</strong><span class="seatNumber"></span></span>
                 <span><strong>Date: </strong> <span id="popup-date"></span></span>
                 <span><strong>Name:</strong><span id="userName"></span></span>
                 <span><strong>Time:</strong><span id="popup-time"></span></span>
-                <span><strong>Date Reserved:</strong><span id="date-reserved"> 2-14-2024</span></span>
-                <span><input id="reserveAnon" type="checkbox"><span class="test">Reserve Anonymously</span></input></span>
+                <span><strong>Date Reserved:</strong><span id="date-reserved">2-14-2024</span></span>
+                  <span><input id="reserveAnon" type="checkbox"><span class="test">Reserve Anonymously</span></input></span>
             </div>
             <div class="popup-buttons">
                 <button onclick="reserve()"> Confirm</button>
                 <button onclick="hideIt()">Go back</button>
             </div>
-    </dialog>
-</div> 
+        </dialog>
+
+        <dialog class="popup-details-dialog" id="popup-details-dialog">
+            <div class="popup-details">
+                <h2>Reservation Details</h2>
+                <hr>
+                <span><strong>Seat Number:</strong><span class="seatNumber"></span></span>
+                <span><strong>Date:</strong><span id="popup-date-details"></span></span>
+                <span><strong>Name:</strong><span id="userName-details"></span></span>
+                <span><strong>Time:</strong><span id="popup-time-details"></span></span>
+                <span><strong>Date Reserved:</strong><span id="date-reserved-details"></span></span>
+            </div>
+            <div class="popup-buttons">
+                <button class="confirmButton" onclick="hideDetailsDialog()">Return</button>
+            </div>
+        </dialog>
+    </div>
 </body>
 {{> footer}}
 </html>
+
+
