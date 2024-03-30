@@ -79,7 +79,7 @@ function loadUserProfile() {
 
 function updateProfilePicture(base64String) {
     const authorizedUsername = sessionStorage.getItem('authorizedUsername');
-    fetch(`/users/${authorizedUsername}`, {
+    fetch(`/users/${authorizedUsername}/editPfp`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'

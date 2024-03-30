@@ -65,7 +65,7 @@ router.delete('/:username', async (req, res) => {
 });
 
 
-/* router.put('/:username', async (req, res) => {
+router.put('/:username/editPfp', async (req, res) => {
   try {
     const { username } = req.params;
     const updatedUserData = req.body;
@@ -85,7 +85,6 @@ router.delete('/:username', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
- */
 
 router.put('/:username', async (req, res) => {
   try {
