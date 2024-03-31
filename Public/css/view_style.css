@@ -224,6 +224,10 @@ button:hover::after{
     color: #3A5A40; 
 }
 
+a{
+    color: black;
+}
+
 .popup-contents {
     font-family: "Work Sans", sans-serif;
     background-color: rgba(58, 140, 94, 0.8);
