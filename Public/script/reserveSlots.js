@@ -158,12 +158,31 @@ document.addEventListener('DOMContentLoaded', async function () {
         viewAvailability();
     });
 
-    window.hideIt = function () {
+    /* window.hideIt = function () {
         let popup = document.querySelector('.popup-contents');
         popup.style.display = 'none';
         popup = document.getElementById('popup-contentsView');
         popup.style.display = 'none';
+    }; */
+
+    window.hideIt = function () {
+        hidePopup();
     };
+
+    function hidePopup() {
+        const popup = document.querySelector('.popup-contents');
+        popup.style.display = 'none';
+        const popupView = document.getElementById('popup-contentsView');
+        popupView.style.display = 'none';
+    }
+
+    document.addEventListener('click', function (event) {
+        const popup = document.querySelector('.popup-contents');
+        const popupView = document.getElementById('popup-contentsView');
+        if (event.target !== popup && !popup.contains(event.target) && event.target !== popupView && !popupView.contains(event.target)) {
+            hidePopup();
+        }
+    });
 
     window.reserve = async function () {
         const currentLab = document.getElementById('lab').value;
