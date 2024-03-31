@@ -27,9 +27,9 @@ router.get('/most-reserved-labs', async (req, res) => {
 });
 
 
-router.get('/logout', function(req, res) {
-    res.cookie('rememberMe', '', { expires: new Date(0), path: '/', httpOnly: true, secure: true });
-    res.cookie('sessionToken', '', { expires: new Date(0), path: '/', httpOnly: true, secure: true });
+router.get('/logout', async function(req, res) {
+    await res.cookie('rememberMe', '', { expires: new Date(0), path: '/', httpOnly: true, secure: true });
+    await res.cookie('sessionToken', '', { expires: new Date(0), path: '/', httpOnly: true, secure: true });
     res.status(200).send('Logged out');
     console.log("Logged Out!")
 });

@@ -79,27 +79,6 @@ fetch(`/users/${authorizedUsername}`)
     tbody.removeChild(tbody.firstChild);
     }
 
-
-    function logout() {
-        fetch('/logout', {
-            method: 'POST',
-        })
-        .then(response => {
-            if (response.ok) {
-                sessionStorage.removeItem('authorized');
-                sessionStorage.removeItem('authorizedUsername');
-                goToHomePage();
-            } else {
-                console.error('Failed to logout');
-            }
-        })
-        .catch(error => {
-            console.error('Error during logout:', error);
-        });
-    }
-    
-
-
 function goToHomePage() {
     window.location.href = '../';
 }

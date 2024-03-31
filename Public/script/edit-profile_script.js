@@ -133,14 +133,13 @@ function checkLogoutParameter() {
     }
 }
 
-function logout() {
+async function logout() {
     const cookies = document.cookie.split(';');
-    goToHomePage(); 
-    fetch('/logout')
+    await fetch('/logout')
     .then(response => {
       if(response.ok) {
-        console.log("Logged out successfully");
         sessionStorage.clear();
+        console.log("Logged out successfully");
       }
     })
     .catch(error => console.error('Logout failed', error));
