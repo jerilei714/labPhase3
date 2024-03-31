@@ -254,7 +254,7 @@ button:hover::after{
     transition: opacity 1s;
     border-radius: 0.5em;
     z-index: 1;
-    margin-top: 1;
+    margin-top: 5%;
 }
 
 .popup-contentsView {
