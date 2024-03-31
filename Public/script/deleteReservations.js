@@ -188,19 +188,12 @@ document.addEventListener('DOMContentLoaded', function () {
             const selectedDate = document.getElementById('date').value;
             let startTime = document.getElementById('StartTime').value;
             let endTime = document.getElementById('EndTime').value;
-    
-            // Convert selected date and start time to a Date object
             let reservationStartDateTime = new Date(`${selectedDate} ${startTime}`);
-    
-            // Adjust for the 10-minute buffer
             reservationStartDateTime.setMinutes(reservationStartDateTime.getMinutes() + 10);
-    
-            // Get current time
             let currentTime = new Date();
     
-            // Check if current time is past the reservation start time plus 10 minutes
+
             if (currentTime >= reservationStartDateTime) {
-                // Proceed with fetching and displaying reserved seats as current time is past the buffer
                 const response = await fetch(`/seats/available/${currentLab}?date=${encodeURIComponent(selectedDate)}&startTime=${encodeURIComponent(startTime)}&endTime=${encodeURIComponent(endTime)}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch available seats');
