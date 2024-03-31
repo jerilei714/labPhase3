@@ -42,7 +42,7 @@ document.getElementById('registerForm').addEventListener('submit', function(even
         }else if (error.message === 'Username invalid') {
             alert("Username invalid");
         } else {
-            document.getElementById('message').textContent = error.message;
+            alert(error.message)
         }
     });
 });
