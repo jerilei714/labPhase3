@@ -4,9 +4,9 @@
 ## Getting Started
 There are two ways to run the application
 
-##1 Open the website on which it is run: https://laboratory-reservation-jvni.onrender.com
+## 1 Open the website on which it is run: https://laboratory-reservation-jvni.onrender.com
 
-##2 Run the development server #
+## 2 Run the development server #
 To do so
 Ensure you have the following installed on your machine:
   • Node.js
