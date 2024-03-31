@@ -9,12 +9,12 @@
     <script src="script/filters.js" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">    
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <title>Lab Reservation System</title>
 </head>
 {{!-- <body>
     {{> header}}
-    <div class="main-section">  
+    <div class="main-section">
         <h2>Delete Seat Reservations</h2>
         <form id = "buttonForAvailibility" method="post">
             <div id="lab-selection">
@@ -23,7 +23,7 @@
                     <select id="lab">
                     </select>
                 </span>
-    
+
                 <span>
                     <label for="date">Select Date:</label>
                     <input type="date" id="date" required>
@@ -55,7 +55,7 @@
         </div>
         <dialog class="popup-contents" id="popup-contents">
             <div class="popup-details">
-                <h2>Reservation Details</h2> 
+                <h2>Reservation Details</h2>
                 <hr>
                 <span><strong>Date: </strong> <span id="popup-date"></span></span>
                 <span><strong>Name:</strong><span id="userName" class = "userName"></span></span>
@@ -67,13 +67,13 @@
                 <button id = "deleteButton"> Cancel</button>
             </div>
     </dialog>
-</div> 
+</div>
 {{> footer}}
 </body> --}}
 
 <body>
     {{> header}}
-    <div class="main-section">  
+    <div class="main-section">
         <h2>Delete Seat Reservations</h2>
         <form id="buttonForAvailibility" method="post">
             <div id="lab-selection">
@@ -81,17 +81,17 @@
                     <label for="lab">Choose a Lab:</label>
                     <select id="lab"></select>
                 </span>
-   
+
                 <span>
                     <label for="date">Select Date:</label>
                     <input type="date" id="date" required>
                 </span>
-   
+
                 <span>
                     <label for="StartTime">Start Time:</label>
                     <select id="StartTime" required></select>
                 </span>
-   
+
                 <span>
                     <label for="EndTime">End Time:</label>
                     <select id="EndTime" required></select>
