@@ -11,7 +11,9 @@ The link to the website: https://laboratory-reservation-jvni.onrender.com
 To do so
 Ensure you have the following installed on your machine:
   • Node.js
+
   • MongoDB Community Server
+  
   • MongoDB Compass
 If you have not installed everything that is mentioned above, do install them first and come back to this after.
 
