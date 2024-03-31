@@ -104,26 +104,19 @@ document.addEventListener('DOMContentLoaded', async function () {
         const endTime = document.getElementById('EndTime').value;
         if (!seat.classList.contains('selected')) {
             selectedSeat = seat;
-            closeAllPopups();
             const popup = document.querySelector('.popup-contents'); 
             document.querySelector('#popup-date').textContent = date; 
-            fetch(`/users/${studentUsername}`)
+            const authorizedUsername = sessionStorage.getItem('authorizedUsername');
+            fetch(`/users/${authorizedUsername}`)
                 .then(response => response.json())
                 .then(user => {
-                    document.getElementById('userNamep').innerHTML = studentUsername
+                    document.getElementById('userNamep').innerHTML = authorizedUsername
                     document.querySelector('#popup-time').textContent = `${startTime} - ${endTime}`; 
                     document.querySelector('.seatNumber').textContent = seat.textContent; 
                     document.querySelector('#date-reserved').textContent = new Date().toLocaleDateString('en-GB').split('/').join('-');
                     popup.style.display = 'flex';
                 });
         }
-    }
-
-    function closeAllPopups() {
-        const popups = document.querySelectorAll('.popup-contents');
-        popups.forEach(popup => {
-            popup.style.display = 'none';
-        });
     }
 
     function showDefPopup(seat) {
@@ -141,7 +134,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 document.querySelector('#popup-timeView').textContent = reservation.reserve_time;
                 document.querySelector('.seatNumberView').innerHTML = seat.innerText;
                 document.querySelector('#date-reservedView').innerHTML = new Date(reservation.tnd_requested).toLocaleDateString('en-GB').split('/').join(' - ');
-    
+
                 const userNameElement = document.querySelector('#userNameView');
                 const anchorElement = document.createElement('a');
                 anchorElement.id = "userNameView"
