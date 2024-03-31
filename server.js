@@ -3,10 +3,8 @@ const express = require('express');
 const path = require('path');
 const hbsCtrl = require('hbs')
 const crypto = require('crypto');
-const bodyParser = require('body-parser');
 const exphbs  = require('express-handlebars');
 const cookieParser = require('cookie-parser')
-
 const routes = require('./Routes/routes')
 const { connectToDB } = require('./Model/labDatabase');
 const registrationController = require('./Controller/regController');
