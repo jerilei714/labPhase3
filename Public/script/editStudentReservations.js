@@ -48,3 +48,36 @@ studentNameFilter.addEventListener('keypress', (event) => {
         fetchAndDisplayStudents(filterValue);
     }
 });
+async function filterStudents() {
+    const filter = studentNameFilter.value.toLowerCase();
+    tbody.innerHTML = ''; 
+    try {
+        const response = await fetch('/users/students');
+        const { students } = await response.json();
+        const filteredStudents = students.filter(student => student.username.toLowerCase().includes(filter));
+        for (let student of filteredStudents) {
+            const reservationsResponse = await fetch(`/reservations/userReservations/${student.username}`);
+            const reservations = await reservationsResponse.json();
+            const totalReservedSeats = reservations.userReservations.length;
+            const row = document.createElement('tr');
+            const usernameCell = document.createElement('td');
+            usernameCell.textContent = student.username;
+            row.appendChild(usernameCell)
+            const reservedSeatsCell = document.createElement('td');
+            reservedSeatsCell.textContent = totalReservedSeats; 
+            row.appendChild(reservedSeatsCell);
+            const actionsCell = document.createElement('td');
+            const editButton = document.createElement('button');
+            editButton.textContent = 'Edit';
+            editButton.addEventListener('click', () => {
+                window.location.href = `reserveForStudent?studentUsername=${encodeURIComponent(student.username)}`; 
+            });
+            actionsCell.appendChild(editButton);
+            row.appendChild(actionsCell);
+
+            tbody.appendChild(row); 
+        }
+    } catch (error) {
+        console.error('Error fetching students:', error);
+    }
+}
