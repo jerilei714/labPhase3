@@ -68,7 +68,7 @@ router.delete('/:seatId', async (req, res) => {
 
 router.get('/available/:labName', async (req, res) => {
     try {
-        const { labName } = req.params;
+        const { labName, startTime, endTime } = req.params;
         const { date } = req.query; 
         const availableSeatCount = await getAvailableSeatCount(labName, date);
         res.json(availableSeatCount);

@@ -74,9 +74,9 @@ router.delete('/:seatId', async (req, res) => {
 
 router.get('/lab/:labId', async (req, res) => {
     try {
-        const { labId } = req.params;
-        const { date } = req.query; 
-        const reservedSeats = await getReservedSeatsByLab(labId, date); 
+        const { labId} = req.params;
+        const { date, startTime, endTime } = req.query; 
+        const reservedSeats = await getReservedSeatsByLab(labId, date,  startTime, endTime ); 
         res.json(reservedSeats);
     } catch (error) {
         console.error('Error fetching reserved seats:', error);

@@ -3,13 +3,12 @@ document.addEventListener('DOMContentLoaded', async function () {
     let currentLab = null;
     let defaultTotalSeats = 40;
 
-
     async function viewAvailability() {
         try {
             currentLab = document.getElementById('lab').value;
-            const selectedDate = document.getElementById('date').value;
-
-
+            const selectedDate = document.getElementById('date').value; 
+            let startTime = document.getElementById('StartTime').value;
+            let endTime = document.getElementById('EndTime').value;
             const response = await fetch(`/seats/available/${currentLab}?date=${encodeURIComponent(selectedDate)}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch available seats');
@@ -26,73 +25,66 @@ document.addEventListener('DOMContentLoaded', async function () {
             }
             const labInfo = await labInfoResponse.json();
             defaultTotalSeats = labInfo.total_seats;
-            await generateSeats(seatContainer, defaultTotalSeats, currentLab, selectedDate);
+            await generateSeats(seatContainer, defaultTotalSeats);
             availabilityResults.appendChild(seatContainer);
 
-
-            const reservedSeatsResponse = await fetch(`/reservedseats/lab/${currentLab}?date=${selectedDate}`);
+            const reservedSeatsResponse = await fetch(`/reservedseats/lab/${currentLab}?date=${selectedDate}&startTime=${encodeURIComponent(startTime)}&endTime=${encodeURIComponent(endTime)}`);
             const reservedSeatsData = await reservedSeatsResponse.json();
-
 
             reservedSeatsData.forEach(reservation => {
                 const seat = document.querySelector(`.seat:nth-child(${String(reservation.seat_number)})`);
                 if (seat) {
                     seat.classList.add('selected');
+                    seat.dataset.reservationId = reservation.reservation_id;
+                    seat.addEventListener('click', function () {
+                        showDefPopup(seat); 
+                    });
                 } else {
                     console.log('Seat not found for reservation:', reservation);
                 }
             });
+
         } catch (error) {
             console.error('Error fetching available seats:', error);
         }
     }
-
-
-    async function generateSeats(seatContainer, seatCount, labId, selectedDate) {
+    
+    
+    async function generateSeats(seatContainer, seatCount, labId) {
         seatContainer.innerHTML = '';
-
-
         try {
-            const reservedSeatsResponse = await fetch(`/reservedseats/lab/${labId}?date=${selectedDate}`);
+            const selectedDate = document.getElementById('date').value; 
+            let startTime = document.getElementById('StartTime').value;
+            let endTime = document.getElementById('EndTime').value;
+            const reservedSeatsResponse = await fetch(`/reservedseats/lab/${labId}?date=${selectedDate}&startTime=${encodeURIComponent(startTime)}&endTime=${encodeURIComponent(endTime)}`);
             const reservedSeatsData = await reservedSeatsResponse.json();
-
-
             const currentTime = new Date();
-
-
             for (let i = 1; i <= seatCount; i++) {
                 const seat = document.createElement('div');
                 seat.classList.add('seat');
-
-
-                const reservation = reservedSeatsData.find(seat => seat.seat_number === i);
+    
+                const reservation = reservedSeatsData.find(seatReservation => seatReservation.seat_number === i);
                 if (reservation) {
-                    const reservationTime = new Date(reservation.time_reserved);
+                    const reservationTime = new Date(reservation.reserve_time);
                     if (reservationTime < currentTime) {
                         await releaseReservation(reservation._id);
                     } else {
                         seat.classList.add('reserved');
-                        seat.dataset.reservationId = reservation._id; // Store reservation ID as a dataset attribute
-                        seat.addEventListener('click', function () {
-                            showReservedPopup(reservation);
-                        });
                     }
                 } else {
                     seat.addEventListener('click', function () {
                         showPopup(seat);
                     });
                 }
-
-
                 seat.innerText = i;
                 seatContainer.appendChild(seat);
             }
         } catch (error) {
             console.error('Error fetching reserved seats data:', error);
         }
-    }
-
-
+    }    
+    
+    
     async function releaseReservation(reservationId) {
         try {
             const response = await fetch(`/reservedseats/${reservationId}`, {
@@ -104,55 +96,74 @@ document.addEventListener('DOMContentLoaded', async function () {
         } catch (error) {
             console.error('Error releasing reservation:', error);
         }
-    }
-
-
+    }           
+    
     function showPopup(seat) {
-        if (!seat.classList.contains('reserved')) {
-            const date = document.getElementById('date').value;
-            const startTime = document.getElementById('StartTime').value;
-            const endTime = document.getElementById('EndTime').value;
-
+        const date = document.getElementById('date').value;
+        const startTime = document.getElementById('StartTime').value;
+        const endTime = document.getElementById('EndTime').value;
+        if (!seat.classList.contains('selected')) {
             selectedSeat = seat;
-
-            const popup = document.querySelector('.popup-contents');
-            document.querySelector('#popup-date').innerHTML = date;
+            const popup = document.querySelector('.popup-contents'); 
+            document.querySelector('#popup-date').textContent = date; 
             const authorizedUsername = sessionStorage.getItem('authorizedUsername');
             fetch(`/users/${authorizedUsername}`)
                 .then(response => response.json())
                 .then(user => {
-                    document.querySelector('#userName').innerHTML = user.username;
-                    const userNameElement = document.querySelector('#userName');
-                    userNameElement.addEventListener('click', function () {
-                        window.location.href = `viewProfile?username=${encodeURIComponent(user.username)}`;
-                    });
+                    document.getElementById('userNamep').innerHTML = authorizedUsername
+                    document.querySelector('#popup-time').textContent = `${startTime} - ${endTime}`; 
+                    document.querySelector('.seatNumber').textContent = seat.textContent; 
+                    document.querySelector('#date-reserved').textContent = new Date().toLocaleDateString('en-GB').split('/').join('-');
+                    popup.style.display = 'flex';
                 });
-            document.querySelector('#popup-time').textContent = startTime + " - " + endTime;
-            document.querySelector('.seatNumber').innerHTML = seat.innerText;
-            document.querySelector('#date-reserved').innerHTML = new Date().toLocaleDateString('en-GB').split('/').join('-');
-            popup.style.display = 'flex';
         }
     }
 
+    function showDefPopup(seat) {
+        const popup = document.querySelector('#popup-contentsView');
+        const reservationId = seat.dataset.reservationId;
+        fetch(`/reservations/${reservationId}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch reservation details');
+                }
+                return response.json();
+            })
+            .then(reservation => {
+                document.querySelector('#popup-dateView').innerHTML = reservation.reserve_date;
+                document.querySelector('#popup-timeView').textContent = reservation.reserve_time;
+                document.querySelector('.seatNumberView').innerHTML = seat.innerText;
+                document.querySelector('#date-reservedView').innerHTML = new Date(reservation.tnd_requested).toLocaleDateString('en-GB').split('/').join(' - ');
 
-    function showReservedPopup(reservation) {
-        const selectedDate = document.getElementById('date').value;
-        const reservationDate = reservation.reserve_date;
-        const selectedLab = document.getElementById('lab').value;
-
-
-        if (selectedDate === reservationDate && selectedLab === currentLab) {
-            const popup = document.querySelector('.popup-details-dialog');
-            document.querySelector('#popup-date-details').textContent = reservationDate;
-            document.querySelector('#popup-time-details').textContent = reservation.reserve_time;
-            document.querySelector('.seatNumber').textContent = reservation.seat_number;
-            document.querySelector('#userName-details').textContent = reservation.username;
-            document.querySelector('#date-reserved-details').textContent = new Date(reservation.tnd_requested).toLocaleDateString('en-GB').split('/').join('-');
-            popup.showModal();
-        } else {
-            console.log('Selected date does not match reservation date or lab does not match.');
-        }
+                const userNameElement = document.querySelector('#userNameView');
+                const anchorElement = document.createElement('a');
+                anchorElement.id = "userNameView"
+                anchorElement.innerHTML = reservation.username;
+                if(reservation.username !="Anonymous"){
+                    anchorElement.classList.add("userName")
+                    anchorElement.href = `viewProfile?username=${encodeURIComponent(reservation.username)}`
+                } else{
+                    userNameElement.classList.remove("userName")
+                }
+                popup.style.display = 'flex';
+                userNameElement.parentNode.replaceChild(anchorElement, userNameElement);
+            })
+            .catch(error => {
+                console.error('Error fetching reservation details:', error);
+            });
     }
+    
+    document.getElementById('buttonForAvailibility').addEventListener('submit', function (event) {
+        event.preventDefault();
+        viewAvailability();
+    });
+
+    window.hideIt = function () {
+        let popup = document.querySelector('.popup-contents');
+        popup.style.display = 'none';
+        popup = document.getElementById('popup-contentsView');
+        popup.style.display = 'none';
+    };
 
     window.reserve = async function () {
         const currentLab = document.getElementById('lab').value;
@@ -160,9 +171,8 @@ document.addEventListener('DOMContentLoaded', async function () {
         const startTime = document.getElementById('StartTime').value;
         const endTime = document.getElementById('EndTime').value;
         const seatNumber = parseInt(selectedSeat.innerText, 10);
-        const isAnonymous = document.getElementById('reserveAnon').checked;
-
-
+        const isAnonymous = document.getElementById('reserveAnon').checked; 
+    
         try {
             const response = await fetch(`/users/${sessionStorage.getItem('authorizedUsername')}`);
             if (!response.ok) {
@@ -179,7 +189,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 reserve_date: date,
                 reserve_time: startTime + " - " + endTime,
                 tnd_requested: new Date().toISOString(),
-                anonymous: isAnonymous
+                anonymous: isAnonymous 
             };
             const reservationResponse = await fetch('/reservations', {
                 method: 'POST',
@@ -193,11 +203,11 @@ document.addEventListener('DOMContentLoaded', async function () {
             }
             console.log('Reservation successful');
             document.getElementById('reserveAnon').checked = false;
-            document.querySelector('.seatCount').innerHTML = Number(document.querySelector('.seatCount').innerHTML) - 1;
+            document.querySelector('.seatCount').innerHTML = Number(document.querySelector('.seatCount').innerHTML)-1
             hideIt();
             selectedSeat.classList.add('selected');
             selectedSeat.removeEventListener('click', showPopup);
-
+            viewAvailability()
             const selectedSeats = JSON.parse(sessionStorage.getItem('selectedSeats')) || [];
             selectedSeats.push(selectedSeat.innerText);
             sessionStorage.setItem('selectedSeats', JSON.stringify(selectedSeats));
@@ -206,31 +216,5 @@ document.addEventListener('DOMContentLoaded', async function () {
             alert('Error: Could not make reservation');
         }
     };
-
-
-    function hidePopup() {
-        const popup2 = document.querySelector('.popup-details-dialog');
-        popup2.close();
-        initializeSeatEventListeners();
-    }
-
-
-    window.hideIt = function () {
-        const popup = document.querySelector('.popup-contents');
-        popup.style.display = 'none';
-    };
-
-
-    document.getElementById('buttonForAvailibility').addEventListener('submit', function (event) {
-        event.preventDefault();
-        viewAvailability();
-    });
-
-
-    window.hideDetailsDialog = function () {
-        hidePopup();
-    };
-
-
-    initializeSeatEventListeners();
+    
 });

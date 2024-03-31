@@ -3,29 +3,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentLab = null;
     let defaultTotalSeats = 40;
     let date = document.getElementById('date').value;
-    let time = document.getElementById('StartTime').value;
-    const authorizedUsername = sessionStorage.getItem('authorizedUsername');
-    const timeSelect = document.getElementById('time');
-    const startTime = 6;
-    const endTime = 16;
-
-    for (let hour = startTime; hour < endTime; hour++) {
-        for (let minute = 0; minute < 60; minute += 30) {
-            const start = formatTime(hour, minute);
-            const endHour = minute === 30 ? hour + 1 : hour;
-            const endMinute = minute === 30 ? 0 : 30;
-            const end = formatTime(endHour, endMinute);
-            const timeSlot = `${start} - ${end}`;
-            const option = new Option(timeSlot, timeSlot);
-        }
-    }
-
-    function formatTime(hour, minute) {
-        const hour12 = hour % 12 === 0 ? 12 : hour % 12;
-        const amPm = hour < 12 ? 'AM' : 'PM';
-        return `${hour12}:${minute < 10 ? '0' + minute : minute} ${amPm}`;
-    }
-
+    let startTime = document.getElementById('StartTime').value;
+    let endTime = document.getElementById('EndTime').value;
     function generateSeats(seatContainer, seatCount) {
         seatContainer.innerHTML = '';
         for (let i = 1; i <= seatCount; i++) {
@@ -43,8 +22,9 @@ document.addEventListener('DOMContentLoaded', function () {
         try {
             currentLab = document.getElementById('lab').value;
             const selectedDate = document.getElementById('date').value; 
-    
-            const response = await fetch(`/seats/available/${currentLab}?date=${encodeURIComponent(selectedDate)}`);
+            let startTime = document.getElementById('StartTime').value;
+            let endTime = document.getElementById('EndTime').value;
+            const response = await fetch(`/seats/available/${currentLab}?date=${encodeURIComponent(selectedDate)}&startTime=${encodeURIComponent(startTime)}&endTime=${encodeURIComponent(endTime)}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch available seats');
             }
@@ -62,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
             defaultTotalSeats = labInfo.total_seats;
             await generateSeats(seatContainer, defaultTotalSeats);
             availabilityResults.appendChild(seatContainer);
-            const reservedSeatsResponse = await fetch(`/reservedseats/lab/${currentLab}?date=${selectedDate}`);
+            const reservedSeatsResponse = await fetch(`/reservedseats/lab/${currentLab}?date=${selectedDate}&startTime=${encodeURIComponent(startTime)}&endTime=${encodeURIComponent(endTime)}`);
             if (!reservedSeatsResponse.ok) {
                 throw new Error('Failed to fetch reserved seats');
             }
@@ -84,6 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const popup = document.querySelector('.popup-contents');
         const reservationId = seat.dataset.reservationId;
         const decrementedId = reservationId;
+        console.log(decrementedId)
         fetch(`/reservations/${decrementedId}`)
             .then(response => {
                 if (!response.ok) {

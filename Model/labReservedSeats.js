@@ -37,15 +37,28 @@ async function deleteReservedSeat(seatId) {
   return result.deletedCount > 0;
 }
 
-async function getReservedSeatsByLab(labId, date) {
+async function getReservedSeatsByLab(labId, date, startTime, endTime) {
   const db = await connectToDB();
-  let query = { lab_id: labId };
-  if (date) {
-      query.reserve_date = date;
-  }
-  return db.collection('reserved_seats').find(query).toArray();
+  let query = {
+    lab_id: labId,
+    reserve_date: date
+  };
+  const potentialOverlaps = await db.collection('reserved_seats').find(query).toArray();
+  const timeToMinutes = (timeStr) => {
+    const [time, modifier] = timeStr.split(' ');
+    let [hours, minutes] = time.split(':').map(Number);
+    if (modifier === 'PM' && hours < 12) hours += 12;
+    if (modifier === 'AM' && hours === 12) hours = 0;
+    return hours * 60 + minutes;
+  };
+  const startMinutes = timeToMinutes(startTime);
+  const endMinutes = timeToMinutes(endTime);
+  const filteredOverlaps = potentialOverlaps.filter(({ reserve_time }) => {
+    const [reserveStart, reserveEnd] = reserve_time.split(' - ').map(timeToMinutes);
+    return (reserveStart < endMinutes && reserveEnd > startMinutes);
+  });
+  return filteredOverlaps;
 }
-
 
 async function updateReservedSeatByReservationId(reservationId, updatedSeat) {
   const db = await connectToDB();
