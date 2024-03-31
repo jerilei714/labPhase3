@@ -224,7 +224,23 @@ button:hover::after{
     color: #3A5A40; 
 }
 
-.popup-contents
+.popup-contents {
+    font-family: "Work Sans", sans-serif;
+    background-color: rgba(58, 140, 94, 0.8);
+    flex-direction: column;
+    width: 18em;
+    height: max-content;
+    top: 25%;
+    bottom: 25%;
+    justify-content: center;
+    position: absolute;
+    font-size: 1.8rem;
+    transition: opacity 1s;
+    border-radius: 0.5em;
+    z-index: 1;
+    margin-top: 1em;
+}
+
 .popup-contentsView {
     font-family: "Work Sans", sans-serif;
     background-color: rgba(58, 140, 94, 0.8);
@@ -232,7 +248,7 @@ button:hover::after{
     width: 18em;
     height: max-content;
     top: 25%;
-    bottom:25%;
+    bottom: 25%;
     justify-content: center;
     position: absolute;
     font-size: 1.8rem;
@@ -240,6 +256,7 @@ button:hover::after{
     border-radius: 0.5em;
     z-index: 1;
 }
+
 
 .userName {
     cursor: pointer;
