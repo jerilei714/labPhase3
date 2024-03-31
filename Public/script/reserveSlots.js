@@ -119,6 +119,13 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     }
 
+    function closeAllPopups() {
+        const popups = document.querySelectorAll('.popup-contents');
+        popups.forEach(popup => {
+            popup.style.display = 'none';
+        });
+    }
+
     function showDefPopup(seat) {
         const popup = document.querySelector('#popup-contentsView');
         const reservationId = seat.dataset.reservationId;
