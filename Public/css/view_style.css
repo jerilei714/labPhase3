@@ -240,7 +240,7 @@ button:hover::after{
     z-index: 1;
 }
 
-.popup-contents1 {
+#popup-contents1 {
     font-family: "Work Sans", sans-serif;
     background-color: rgba(58, 140, 94, 0.8);
     flex-direction: column;
@@ -257,7 +257,7 @@ button:hover::after{
     margin-top: 5%;
 }
 
-.popup-contentsView {
+#popup-contentsView {
     font-family: "Work Sans", sans-serif;
     background-color: rgba(58, 140, 94, 0.8);
     flex-direction: column;
