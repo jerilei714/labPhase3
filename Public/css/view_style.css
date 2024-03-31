@@ -246,7 +246,7 @@ button:hover::after{
     flex-direction: column;
     width: 18em;
     height: max-content;
-    top: 26%;
+    top: 25%;
     bottom:25%;
     justify-content: center;
     position: absolute;
