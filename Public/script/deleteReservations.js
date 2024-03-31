@@ -162,40 +162,59 @@ document.addEventListener('DOMContentLoaded', function () {
     async function viewAvailability() {
         try {
             currentLab = document.getElementById('lab').value;
-            const selectedDate = document.getElementById('date').value; 
+            const selectedDate = document.getElementById('date').value;
             let startTime = document.getElementById('StartTime').value;
             let endTime = document.getElementById('EndTime').value;
-            const response = await fetch(`/seats/available/${currentLab}?date=${encodeURIComponent(selectedDate)}&startTime=${encodeURIComponent(startTime)}&endTime=${encodeURIComponent(endTime)}`);
-            if (!response.ok) {
-                throw new Error('Failed to fetch available seats');
-            }
-            const availableSeatCount = await response.json();
-            const availabilityResults = document.getElementById('availability-results');
-            availabilityResults.innerHTML = `<h3>${currentLab} Availability</h3><p class="Available">Available Seats: ${availableSeatCount}</p>`;
-            availabilityResults.style.display = 'block';
-            const seatContainer = document.createElement('div');
-            seatContainer.classList.add('seat-container');
-            const labInfoResponse = await fetch(`/labs/name/${encodeURIComponent(currentLab)}`);
-            if (!labInfoResponse.ok) {
-                throw new Error('Failed to fetch lab info');
-            }
-            const labInfo = await labInfoResponse.json();
-            defaultTotalSeats = labInfo.total_seats;
-            await generateSeats(seatContainer, defaultTotalSeats);
-            availabilityResults.appendChild(seatContainer);
-            const reservedSeatsResponse = await fetch(`/reservedseats/lab/${currentLab}?date=${selectedDate}&startTime=${encodeURIComponent(startTime)}&endTime=${encodeURIComponent(endTime)}`);
-            if (!reservedSeatsResponse.ok) {
-                throw new Error('Failed to fetch reserved seats');
-            }
-            const reservedSeatsData = await reservedSeatsResponse.json();
     
-            reservedSeatsData.forEach(reservation => {
-                const seat = seatContainer.querySelector(`.seat:nth-child(${reservation.seat_number})`);
-                if (seat) {
-                    seat.classList.add('selected');
-                    seat.dataset.reservationId = reservation.reservation_id;
+            // Convert selected date and start time to a Date object
+            let reservationStartDateTime = new Date(`${selectedDate} ${startTime}`);
+    
+            // Adjust for the 10-minute buffer
+            reservationStartDateTime.setMinutes(reservationStartDateTime.getMinutes() + 10);
+    
+            // Get current time
+            let currentTime = new Date();
+    
+            // Check if current time is past the reservation start time plus 10 minutes
+            if (currentTime >= reservationStartDateTime) {
+                // Proceed with fetching and displaying reserved seats as current time is past the buffer
+                const response = await fetch(`/seats/available/${currentLab}?date=${encodeURIComponent(selectedDate)}&startTime=${encodeURIComponent(startTime)}&endTime=${encodeURIComponent(endTime)}`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch available seats');
                 }
-            });
+                const availableSeatCount = await response.json();
+                const availabilityResults = document.getElementById('availability-results');
+                availabilityResults.innerHTML = `<h3>${currentLab} Availability</h3><p class="Available">Available Seats: ${availableSeatCount}</p>`;
+                availabilityResults.style.display = 'block';
+                const seatContainer = document.createElement('div');
+                seatContainer.classList.add('seat-container');
+                const labInfoResponse = await fetch(`/labs/name/${encodeURIComponent(currentLab)}`);
+                if (!labInfoResponse.ok) {
+                    throw new Error('Failed to fetch lab info');
+                }
+                const labInfo = await labInfoResponse.json();
+                defaultTotalSeats = labInfo.total_seats;
+                await generateSeats(seatContainer, defaultTotalSeats);
+                availabilityResults.appendChild(seatContainer);
+                const reservedSeatsResponse = await fetch(`/reservedseats/lab/${currentLab}?date=${selectedDate}&startTime=${encodeURIComponent(startTime)}&endTime=${encodeURIComponent(endTime)}`);
+                if (!reservedSeatsResponse.ok) {
+                    throw new Error('Failed to fetch reserved seats');
+                }
+                const reservedSeatsData = await reservedSeatsResponse.json();
+        
+                reservedSeatsData.forEach(reservation => {
+                    const seat = seatContainer.querySelector(`.seat:nth-child(${reservation.seat_number})`);
+                    if (seat) {
+                        seat.classList.add('selected');
+                        seat.dataset.reservationId = reservation.reservation_id;
+                    }
+                });
+            } else {
+                // Handle the case where the current time is before the reservation start time plus 10 minutes
+                const availabilityResults = document.getElementById('availability-results');
+                availabilityResults.innerHTML = `<p>Reservations will be displayed 10 minutes past their start time.</p>`;
+                availabilityResults.style.display = 'block';
+            }
         } catch (error) {
             console.error('Error fetching available seats:', error);
         }
