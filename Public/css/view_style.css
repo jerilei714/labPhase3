@@ -246,7 +246,7 @@ button:hover::after{
     flex-direction: column;
     width: 18em;
     height: max-content;
-    top: 25%;
+    top: 30%;
     bottom:25%;
     justify-content: center;
     position: absolute;
@@ -254,7 +254,6 @@ button:hover::after{
     transition: opacity 1s;
     border-radius: 0.5em;
     z-index: 1;
-    margin-top: 5%;
 }
 
 #popup-contentsView {
