@@ -104,13 +104,13 @@ document.addEventListener('DOMContentLoaded', async function () {
         const endTime = document.getElementById('EndTime').value;
         if (!seat.classList.contains('selected')) {
             selectedSeat = seat;
+            closeAllPopups();
             const popup = document.querySelector('.popup-contents'); 
             document.querySelector('#popup-date').textContent = date; 
-            const authorizedUsername = sessionStorage.getItem('authorizedUsername');
-            fetch(`/users/${authorizedUsername}`)
+            fetch(`/users/${studentUsername}`)
                 .then(response => response.json())
                 .then(user => {
-                    document.getElementById('userNamep').innerHTML = authorizedUsername
+                    document.getElementById('userNamep').innerHTML = studentUsername
                     document.querySelector('#popup-time').textContent = `${startTime} - ${endTime}`; 
                     document.querySelector('.seatNumber').textContent = seat.textContent; 
                     document.querySelector('#date-reserved').textContent = new Date().toLocaleDateString('en-GB').split('/').join('-');
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 document.querySelector('#popup-timeView').textContent = reservation.reserve_time;
                 document.querySelector('.seatNumberView').innerHTML = seat.innerText;
                 document.querySelector('#date-reservedView').innerHTML = new Date(reservation.tnd_requested).toLocaleDateString('en-GB').split('/').join(' - ');
-
+    
                 const userNameElement = document.querySelector('#userNameView');
                 const anchorElement = document.createElement('a');
                 anchorElement.id = "userNameView"
