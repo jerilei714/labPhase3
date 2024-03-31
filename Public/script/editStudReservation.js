@@ -125,9 +125,7 @@ function viewAvailability() {
     const date = document.getElementById('date').value;
     fetch(`reservations/byUsername/${studentUsername}?labId=${labId}&reserveDate=${date}`)
         .then(response => 
-            
             response.json())
-
         .then(data => {
             updateReservationsTable(data);
         })
