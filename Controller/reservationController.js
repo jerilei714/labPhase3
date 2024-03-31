@@ -118,8 +118,6 @@ router.get('/byUsername/:username', async (req, res) => {
     }
 });
 
-//commented in case
-
 router.delete('/:reservationId', async (req, res) => {
     try {
         const { reservationId } = req.params;
@@ -134,40 +132,5 @@ router.delete('/:reservationId', async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
-
-
-//includes the 10 minute time contraint but still doesnt work properly
-/* router.delete('/:reservationId', async (req, res) => {
-    try {
-        const { reservationId } = req.params;
-        const reservation = await getReservation(reservationId);
-
-        if (!reservation) {
-            return res.status(404).json({ error: 'Reservation not found' });
-        }
-
-        const currentTime = new Date();
-        const reservationTime = new Date(reservation.reserve_date + 'T' + reservation.reserve_time);
-        const timeDifference = (reservationTime - currentTime) / (1000 * 60); */ // diff in minutes
-
-        // can only delete reservations within 10 minutes of the reservation time
-/*         if (timeDifference <= 10 && timeDifference >= -10) {
-            const success = await deleteReservation(reservationId);
-            if (success) {
-                res.json({ success: true });
-            } else {
-                res.status(404).json({ error: 'Reservation not found' });
-            }
-        } else { */
-            //cannot delete reservations before or after the reservation time
-/*             res.status(400).json({ error: 'Cannot remove reservation outside the allowed time frame' });
-        }
-    } catch (error) {
-        console.error('Error deleting reservation:', error);
-        res.status(500).json({ error: 'Internal server error' });
-    }
-}); */
-
-
 
 module.exports = router;
