@@ -138,7 +138,7 @@ async function logout() {
     await fetch('/logout')
     .then(response => {
       if(response.ok) {
-        await sessionStorage.clear();
+        sessionStorage.clear();
         console.log("Logged out successfully");
         goToHomePage();
       }
