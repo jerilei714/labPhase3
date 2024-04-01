@@ -44,7 +44,7 @@ body {
     border-radius: 1em;
 }
 
-.buttons{
+.buttons, .return-home-btn{
     font-family: "Work Sans", sans-serif;
     display: flex;
     width: 100%;
@@ -52,7 +52,7 @@ body {
     column-gap: 1em;
 }
 
-.buttons button {
+.buttons button, .return-home-btn {
     width: 100%;
 }
 
@@ -66,7 +66,8 @@ select {
     border-radius: 10px;
 }
 
-button {
+button, .return-home-btn{
+    text-decoration: none;
     font-family: "Work Sans", sans-serif;
     font-weight: 100;
     color: #fff;
@@ -84,7 +85,7 @@ button {
 }
 
 
-button:hover {
+button, .return-home-btn:hover {
     background-color:#00290c ;
   }
 
