@@ -23,6 +23,7 @@
   "homepage": "https://github.com/jerilei714/labPhase3#readme",
   "dependencies": {
     "axios": "^1.6.7",
+    "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.6",
     "crypto": "^1.0.1",
     "dotenv": "^16.4.5",
