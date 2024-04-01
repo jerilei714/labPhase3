@@ -134,6 +134,7 @@ function checkLogoutParameter() {
 
 async function logout() {
     const cookies = document.cookie.split(';');
+    sessionStorage.clear()
     await fetch('/logout')
     .then(response => {
       if(response.ok) {
@@ -142,7 +143,6 @@ async function logout() {
       }
     })
     .catch(error => console.error('Logout failed', error));
-    sessionStorage.clear()
     goToHomePage();
 }
 
