@@ -21,7 +21,7 @@ router.post('/', async (req, res) => {
                 const token = jwt.sign({ username: user.username, userId: user.id }, tokenJWT, { expiresIn: '30m' });
                 
                 if (rememberMe) {
-                    const rememberToken = jwt.sign({ username: user.username, userId: user.id }, tokenJWT, { expiresIn: '1h' }); 
+                    const rememberToken = jwt.sign({ username: user.username, userId: user.id }, tokenJWT, { expiresIn: '3w' }); 
                     await addRememberMeToken(username, rememberToken);
                     await removeExpiredRememberMeTokens(username);
                     res.cookie('rememberMe', rememberToken, { httpOnly: true, maxAge: 1814400000 });
