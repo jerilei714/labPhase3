@@ -50,8 +50,6 @@ document.addEventListener('DOMContentLoaded', function () {
             let reservationStartDateTime = new Date(`${selectedDate} ${startTime}`);
             reservationStartDateTime.setMinutes(reservationStartDateTime.getMinutes() + 10);
             let currentTime = new Date();
-    
-
             if (currentTime >= reservationStartDateTime) {
                 const response = await fetch(`/seats/available/${currentLab}?date=${encodeURIComponent(selectedDate)}&startTime=${encodeURIComponent(startTime)}&endTime=${encodeURIComponent(endTime)}`);
                 if (!response.ok) {
@@ -85,7 +83,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 });
             } else {
-                // Handle the case where the current time is before the reservation start time plus 10 minutes
                 const availabilityResults = document.getElementById('availability-results');
                 availabilityResults.innerHTML = `<p>You can only delete reservations 10 minutes past their start time.</p>`;
                 availabilityResults.style.display = 'block';

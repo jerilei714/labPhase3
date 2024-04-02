@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const selectedDate = document.getElementById('date').value; 
             let startTime = document.getElementById('StartTime').value;
             let endTime = document.getElementById('EndTime').value;
-            const reservedSeatsResponse = await fetch(`/reservedseats/lab/${labId}?date=${selectedDate}&startTime=${encodeURIComponent(startTime)}&endTime=${encodeURIComponent(endTime)}`);
+            const response = await fetch(`/seats/available/${currentLab}?date=${encodeURIComponent(selectedDate)}&startTime=${encodeURIComponent(startTime)}&endTime=${encodeURIComponent(endTime)}`);
             const reservedSeatsData = await reservedSeatsResponse.json();
     
             const currentTime = new Date();

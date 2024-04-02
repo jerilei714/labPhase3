@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             const selectedDate = document.getElementById('date').value; 
             let startTime = document.getElementById('StartTime').value;
             let endTime = document.getElementById('EndTime').value;
-            const response = await fetch(`/seats/available/${currentLab}?date=${encodeURIComponent(selectedDate)}`);
+            const response = await fetch(`/seats/available/${currentLab}?date=${encodeURIComponent(selectedDate)}&startTime=${encodeURIComponent(startTime)}&endTime=${encodeURIComponent(endTime)}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch available seats');
             }
