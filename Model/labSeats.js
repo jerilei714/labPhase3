@@ -49,6 +49,19 @@ async function getAvailableSeatCount(labName, date, startTime, endTime) {
     const [reserveStart, reserveEnd] = reserve_time.split(' - ').map(timeToMinutes);
     return reserveStart < endMinutes && reserveEnd > startMinutes;
   });
+  /*
+  const overlappingReservations = [];
+const seenSeatNumbers = new Set();
+
+potentialOverlaps.forEach(({ seat_number, reserve_time }) => {
+  const [reserveStart, reserveEnd] = reserve_time.split(' - ').map(timeToMinutes);
+  const overlaps = reserveStart < endMinutes && reserveEnd > startMinutes;
+  if (overlaps && !seenSeatNumbers.has(seat_number)) {
+    overlappingReservations.push({ seat_number, reserve_time });
+    seenSeatNumbers.add(seat_number);
+  }
+});
+*/
   const reservedSeatsCount = overlappingReservations.length;
   return lab.total_seats - reservedSeatsCount;
 }
